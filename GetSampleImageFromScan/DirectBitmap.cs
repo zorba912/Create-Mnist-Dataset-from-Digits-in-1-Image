@@ -335,27 +335,52 @@ namespace GetSampleImageFromScan
 		/// </summary>
 		/// <param name="scrBitmap"></param>
 		/// <returns></returns>
-		public static Bitmap MakeBmpTrans(Bitmap scrBitmap)
+		public static Bitmap MakeBmpTrans(Bitmap firstBitmap)
 		{
+			Bitmap BW_Bmp = FromRGBToBWBmp(firstBitmap);
 			Color orginalColor;
 			//make an empty bitmap the same size as scrBitmap
-			Bitmap newBitmap = new Bitmap(scrBitmap.Width, scrBitmap.Height); //tạo ảnh mới cùng cỡ
-			for (int i = 0; i < scrBitmap.Width; i++)
+			Bitmap newBitmap = new Bitmap(BW_Bmp.Width, BW_Bmp.Height);
+			for (int i = 0; i < BW_Bmp.Width; i++)
 			{
-				for (int j = 0; j < scrBitmap.Height; j++)
+				for (int j = 0; j < BW_Bmp.Height; j++)
 				{
-					//get the pixel from the scrBitmap image
-
-					orginalColor = scrBitmap.GetPixel(10, 10);
-					if (scrBitmap.GetPixel(i, j) == orginalColor)
+					orginalColor = BW_Bmp.GetPixel(10, 10);
+					if (BW_Bmp.GetPixel(i, j) == orginalColor)
 						newBitmap.SetPixel(i, j, Color.Empty);
 					else
-						newBitmap.SetPixel(i, j, scrBitmap.GetPixel(i, j));
+						newBitmap.SetPixel(i, j, BW_Bmp.GetPixel(i, j));
 				}
 			}
-			scrBitmap.Dispose();
+			BW_Bmp.Dispose();
 			return newBitmap;
 		}
+
+		/// <summary>
+		/// Biến ảnh gốc thành ảnh BW
+		/// </summary>
+		/// <param name="orgBmp"></param>
+		/// <returns></returns>
+		public static Bitmap FromRGBToBWBmp(Bitmap orgBmp)
+        {
+			Bitmap newBitmap = new Bitmap(orgBmp.Width, orgBmp.Height);
+			for (int i = 0; i < orgBmp.Width; i++)
+			{
+				for (int j = 0; j < orgBmp.Height; j++)
+				{
+					//get the pixel from the orgBmp image
+					Color c = orgBmp.GetPixel(i, j);
+					byte gray = (byte)(.21 * c.R + .71 * c.G + .071 * c.B);
+					//if (c.R > 50 && c.G > 50 && c.B > 50)
+					if (gray>= 127)
+						newBitmap.SetPixel(i, j, Color.Black);
+					else
+						newBitmap.SetPixel(i, j, Color.White);
+				}
+			}
+			orgBmp.Dispose();
+			return newBitmap;
+        }
 
 		/// <summary>
 		/// Tạo Direct bitmap từ bitmap
@@ -497,5 +522,9 @@ namespace GetSampleImageFromScan
 			//}
 			drbmp.Dispose();
 		}
+
+		// https://efundies.com/adjust-the-contrast-of-an-image-in-c/
+
+		// https://stackoverflow.com/questions/3115076/adjust-the-contrast-of-an-image-in-c-sharp-efficiently
 	}
 }
