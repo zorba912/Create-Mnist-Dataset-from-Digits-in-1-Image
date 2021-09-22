@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace GetSampleImageFromScan
 {
@@ -73,7 +74,8 @@ namespace GetSampleImageFromScan
 						else
 						{
 							DirectBitmap childDrbmp = DirectBitmap.MakeDrbmpFromBmp(DirectBitmap.ArrayToBitmap(image_bytes));
-							// lưu ảnh con
+							childDrbmp.Bitmap.RotateFlip(RotateFlipType.RotateNoneFlipX); // Đảo ngược ảnh
+																						  // lưu ảnh con
 							DirectBitmap.save1BitmapToDest(childDrbmp, soHL.ToString());
 							sttDrbmp++; 
 						}							
@@ -100,7 +102,8 @@ namespace GetSampleImageFromScan
 			if (Console.ReadLine() == "y")
 			{
 				Process.Start(destPath);
-				//Process.Start("explorer.exe", @"D:\4_Code_no_cloud\GetSampleImageFromScan\GetSampleImageFromScan\DestinationFolder");
+				//Process.Start("explorer.exe",
+				//@"D:\4_Code_no_cloud\GetSampleImageFromScan\GetSampleImageFromScan\DestinationFolder");
 				Console.WriteLine("--- Ấn phím bất kỳ để tiếp tục ----\n");
 				Console.ReadKey();
 			}
@@ -120,7 +123,8 @@ namespace GetSampleImageFromScan
 			//process.Start();
 
 			var process = new System.Diagnostics.Process();
-			string PythonPath = Directory.GetParent(workingDirectoryFP).FullName + @"\ConvertToMnistPy";
+			string PythonPath = Directory.GetParent(workingDirectoryFP).FullName 
+				+ @"\ConvertToMnistPy";
 			var startInfo = new System.Diagnostics.ProcessStartInfo
 			{
 				WorkingDirectory = PythonPath,

@@ -522,7 +522,7 @@ namespace GetSampleImageFromScan
 			//}
 			drbmp.Dispose();
 		}
-
+		// Set Contrast function
 		// https://efundies.com/adjust-the-contrast-of-an-image-in-c/
 
 		// https://stackoverflow.com/questions/3115076/adjust-the-contrast-of-an-image-in-c-sharp-efficiently
