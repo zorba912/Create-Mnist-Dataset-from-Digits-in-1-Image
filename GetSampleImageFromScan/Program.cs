@@ -49,7 +49,7 @@ namespace GetSampleImageFromScan
                     newBigDrBmp.Bitmap.Save(fullpathtest);
                     Console.WriteLine("Lưu ảnh lớn thành công, filename = {0}", filenametest);
 
-                    /// tách 1 bitmap thành nhiều bitmap nhỏ hơn, kq dạng list của list (tuple)
+                    // tách 1 bitmap thành nhiều bitmap nhỏ hơn, kq dạng list của list (tuple)
 
                     List<byte[]> ImageS_Bytes = imgFile.GetNumberBytes();
 					Console.WriteLine("Đã chuyển DrBmp thành ImageBytes thành công.");
@@ -65,7 +65,7 @@ namespace GetSampleImageFromScan
                     }						
 					Console.WriteLine("Số lượng ảnh con trong ảnh lớn thứ {0} là: {1}.", sttFile+1, soAnhCon);
 					
-					// duyệt các mảng ảnh con
+					// duyệt các ảnh chữ số con
 					int sttDrbmp = 0;
 					foreach (var image_bytes in ImageS_Bytes)
 					{
@@ -84,30 +84,31 @@ namespace GetSampleImageFromScan
 					Console.WriteLine("Đã lưu {0} ảnh con trong ảnh lớn thứ {1} tập HL cho số {2} thành công.", soAnhCon, sttFile + 1, soHL);
 					Console.WriteLine("");
 
-					//break;	// tạm thời chỉ duyệt 1 file
+					//break;	// nếu brak thì tạm thời chỉ duyệt 1 file
 					sttFile++;
                     if (sttFile == files.Count())
 						continue;
 				};
-
-				// Console.WriteLine("Để tiết kiệm thời gian, tạm thời không chạy tập HL cho số tiếp theo");
-                break;  //tạm thời không chạy tập HL cho số tiếp theo
-            }
+				// nếu để break thì sẽ không chạy tập HL cho số tiếp theo
+				//Console.WriteLine("Để tiết kiệm thời gian, tạm thời không chạy tập HL cho số tiếp theo");
+				//break;  
+			}
 
 			//Process.Start("explorer.exe", @"D:\4_Code_no_cloud\GetSampleImageFromScan\GetSampleImageFromScan\DestinationFolder");
 			string destPath = workingDirectoryFP + @"\DestinationFolder";
 			Console.WriteLine("------------------------\n");
 			Console.WriteLine("Lưu tập ảnh tại thư mục {0}.", destPath);
-			Console.Write("Ấn phím 'Y' để mở thư mục kiểm tra HOẶC ấn phím bất kỳ để tiếp tục: ");
+			Console.Write("Ấn phím 'Y' để mở thư mục kiểm tra HOẶC ấn phím bất kỳ để bỏ qua, tiếp tục tạo file huấn luyện cho Python: ");
 			if (Console.ReadLine() == "y")
 			{
 				Process.Start(destPath);
 				//Process.Start("explorer.exe",
 				//@"D:\4_Code_no_cloud\GetSampleImageFromScan\GetSampleImageFromScan\DestinationFolder");
-				Console.WriteLine("--- Ấn phím bất kỳ để tiếp tục ----\n");
+				Console.WriteLine("--- Ấn phím bất kỳ để tiếp tục tạo file huấn luyện cho Python ----\n");
 				Console.ReadKey();
 			}
-			Console.WriteLine("Chương trình sẽ chạy ngầm chương trình tạo data Mnist bằng file python.");
+			Console.WriteLine("Ấn phím bất kỳ. Chương trình sẽ chạy ngầm quá trình tạo data Mnist bằng file python.");
+			Console.ReadKey();
 			//chạy Python từ CMD
 			// https://stackoverflow.com/questions/1469764/run-command-prompt-commands
 			//string strCmdText;
@@ -141,14 +142,7 @@ namespace GetSampleImageFromScan
 			Process.Start(PythonPath + @"\converted_to_MNIST");
 			Console.WriteLine("Chương trình đã tạo xong tập train và test định dạng idx từ dữ liệu ảnh mới thu thập được. " +
 				"\n Quay trở lại môi trường C# để huấn luyện tập dữ liệu mới.");
-
-
-
-			;
-
-			
-
-
+			Console.ReadKey();
 		}
     }
 }

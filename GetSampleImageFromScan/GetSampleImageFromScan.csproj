@@ -128,6 +128,13 @@
     <Content Include="OriginalFolder\1\anh_nguoc.bmp" />
     <Content Include="OriginalFolder\1\anh_nguoc_1.bmp" />
     <Content Include="OriginalFolder\2\anh_nguoc.bmp" />
+    <Content Include="OriginalFolder\3\3_sample_png.png" />
+    <Content Include="OriginalFolder\4\1_sample_png.png" />
+    <Content Include="OriginalFolder\5\1_sample_png.png" />
+    <Content Include="OriginalFolder\6\1_sample_png.png" />
+    <Content Include="OriginalFolder\7\1_sample_png.png" />
+    <Content Include="OriginalFolder\8\1_sample_png.png" />
+    <Content Include="OriginalFolder\9\1_sample_png.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
